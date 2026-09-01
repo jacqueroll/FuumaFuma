@@ -55,7 +55,9 @@ Isso é o que permite que a Mel entre no painel com um login simples (sem
 precisar de conta no GitHub) e mesmo assim as publicações sejam salvas no
 repositório de verdade.
 
-1. No site criado, vá em **Site configuration → Identity → Enable
+1. No site criado, procure **Identity** no menu lateral do projeto (pode
+   estar direto na lista, ou dentro de "Project configuration" —
+   dependendo da conta, a posição varia um pouco). Clique em **Enable
    Identity**.
 2. Em **Registration**, mude para **Invite only** (assim só quem vocês
    convidarem consegue criar login).
@@ -70,11 +72,6 @@ repositório de verdade.
    já cai automaticamente na tela de login do painel.
 3. A partir daí, o caminho dela para escrever é sempre:
    `https://o-endereco-do-site/admin/`
-
-> Nota sobre datas: a forma exata de habilitar Identity/Git Gateway pode
-> ter mudado um pouco na tela do Netlify desde o começo de 2026 — se
-> algum nome de botão estiver diferente do descrito aqui, a lógica geral
-> (Identity → convidar → Git Gateway) continua sendo a mesma.
 
 ## Como a Mel escreve, no dia a dia
 

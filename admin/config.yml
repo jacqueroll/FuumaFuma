@@ -1,0 +1,51 @@
+backend:
+  name: git-gateway
+  branch: main
+
+# tudo que a Mel envia no editor de imagem cai aqui, dentro do repositório
+media_folder: "assets/images/posts"
+public_folder: "assets/images/posts"
+
+# nomes que aparecem no painel, em português
+locale: "pt"
+
+collections:
+  - name: "posts"
+    label: "Publicações"
+    label_singular: "publicação"
+    folder: "data/posts"
+    create: true
+    delete: true
+    extension: "json"
+    format: "json"
+    identifier_field: "title"
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    summary: "{{title}} — {{date}}"
+    sortable_fields: ["date", "title"]
+    fields:
+      - { label: "Título", name: "title", widget: "string" }
+      - { label: "Data", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false, picker_utc: true }
+      - { label: "Tags", name: "tags", widget: "list", default: [], hint: "ex: auto-fic, drabble, x-clamp" }
+      - { label: "Imagem de capa", name: "cover", widget: "image", required: false, hint: "aparece nos cartões da Home e Histórias" }
+      - { label: "Resumo curto", name: "excerpt", widget: "text", hint: "uma ou duas frases — aparece nos cartões" }
+      - { label: "Texto", name: "body", widget: "markdown", buttons: ["bold", "italic", "link", "heading-three", "quote", "bulleted-list", "numbered-list"] }
+
+  - name: "config"
+    label: "Configurações"
+    files:
+      - name: "escrita"
+        label: "Meta de escrita"
+        file: "data/config.json"
+        fields:
+          - label: "Ritmo de publicação"
+            name: "metaEscrita"
+            widget: "select"
+            options: [
+              { label: "Quinzenal", value: "quinzenal" },
+              { label: "Mensal", value: "mensal" }
+            ]
+          - label: "Última publicação (calculada sozinha, não precisa mexer)"
+            name: "ultimaPublicacao"
+            widget: "string"
+            required: false
+            hint: "atualizada automaticamente a cada publicação nova"

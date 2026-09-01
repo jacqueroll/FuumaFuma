@@ -1,0 +1,13 @@
+[
+  {
+    "slug": "post-de-exemplo-pode-apagar",
+    "title": "Post de exemplo — pode apagar!",
+    "date": "2026-09-01",
+    "tags": [
+      "avisos"
+    ],
+    "cover": "",
+    "excerpt": "Esta é uma publicação de demonstração para você ver como o texto, as imagens e as tags aparecem no site. Pode editar ou apagar quando quiser.",
+    "contentHtml": "<p>Oi! Esta é uma publicação de exemplo, criada só para mostrar como as coisas ficam formatadas por aqui: <strong>negrito</strong>, <em>itálico</em>, citações e imagens.</p>\n<blockquote>\n<p>Uma citação fica assim — boa para separar uma fala ou um trecho de fic.</p>\n</blockquote>\n<p>Quando você escrever de verdade no painel em <strong>/admin</strong>, é só apagar esta publicação por lá (ou apagar o arquivo <code>data/posts/post-de-exemplo-pode-apagar.json</code>) e escrever a sua no lugar.</p>"
+  }
+]

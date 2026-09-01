@@ -49,34 +49,55 @@ git push
    Domain management** dá para trocar esse nome ou apontar um domínio
    próprio, se um dia vocês quiserem.
 
-### 3. Ative o login e a conexão com o GitHub (Identity + Git Gateway)
+### 3. Ative o login do painel (GitHub OAuth)
 
-Isso é o que permite que a Mel entre no painel com um login simples (sem
-precisar de conta no GitHub) e mesmo assim as publicações sejam salvas no
-repositório de verdade.
+O login do painel passa direto pelo GitHub: quem for escrever faz login
+com a própria conta do GitHub, e essa conta precisa ter permissão de
+escrita no repositório `jacqueroll/FuumaFuma`. O projeto já vem com duas
+Netlify Functions (`netlify/functions/auth.js` e `callback.js`) que fazem
+essa ponte — falta só criar as credenciais no GitHub e colocá-las no
+Netlify.
 
-1. No site criado, procure **Identity** no menu lateral do projeto (pode
-   estar direto na lista, ou dentro de "Project configuration" —
-   dependendo da conta, a posição varia um pouco). Clique em **Enable
-   Identity**.
-2. Em **Registration**, mude para **Invite only** (assim só quem vocês
-   convidarem consegue criar login).
-3. Ainda em Identity, vá em **Services → Git Gateway** e clique em
-   **Enable Git Gateway**. É esse recurso que dá ao painel permissão para
-   gravar no GitHub em nome de quem estiver logado.
+**a. Crie um GitHub OAuth App**
 
-### 4. Convide a Mel
+1. No GitHub, vá em **Settings → Developer settings → OAuth Apps → New
+   OAuth App** (`https://github.com/settings/developers`).
+2. Preencha:
+   - **Application name**: `FuumaFuma CMS` (ou qualquer nome)
+   - **Homepage URL**: `https://fuumafuma.netlify.app`
+   - **Authorization callback URL**: `https://fuumafuma.netlify.app/api/callback`
+3. Clique em **Register application**.
+4. Copie o **Client ID** que aparece. Clique em **Generate a new client
+   secret** e copie o **Client secret** também (ele só aparece uma vez).
 
-1. Em **Identity → Invite users**, coloque o e-mail dela.
-2. Ela recebe um e-mail do Netlify, clica no link, escolhe uma senha — e
-   já cai automaticamente na tela de login do painel.
-3. A partir daí, o caminho dela para escrever é sempre:
-   `https://o-endereco-do-site/admin/`
+**b. Coloque essas credenciais no Netlify**
+
+1. No painel do Netlify, vá em **Project configuration → Environment
+   variables**.
+2. Adicione duas variáveis:
+   - `GITHUB_OAUTH_CLIENT_ID` = o Client ID copiado
+   - `GITHUB_OAUTH_CLIENT_SECRET` = o Client secret copiado
+3. Salve e depois vá em **Deploys → Trigger deploy → Deploy site**, para
+   o site recompilar já com essas variáveis disponíveis.
+
+> Se um dia vocês trocarem o domínio do site de novo, é preciso atualizar
+> tanto a Authorization callback URL no GitHub quanto o `base_url` em
+> `admin/config.yml` para o endereço novo.
+
+### 4. Dê acesso à Mel
+
+1. Ela precisa de uma conta no GitHub (gratuita, se ainda não tiver).
+2. No repositório, vá em **Settings → Collaborators → Add people** e
+   coloque o usuário do GitHub dela. Ela recebe um convite por e-mail
+   para aceitar.
+3. Depois de aceitar, o caminho dela para escrever é sempre:
+   `https://fuumafuma.netlify.app/admin/` — ela clica em **"Login with
+   GitHub"**, autoriza o app na primeira vez, e cai direto no painel.
 
 ## Como a Mel escreve, no dia a dia
 
-1. Acessa `/admin` (dá para deixar salvo nos favoritos) e entra com o
-   login que ela criou.
+1. Acessa `/admin` (dá para deixar salvo nos favoritos), clica em **Login
+   with GitHub** e entra com a conta dela.
 2. Clica em **Publicações → New Post**.
 3. Preenche título, data, tags, resumo, capa (opcional) e escreve o
    texto no editor — negrito, itálico, título, citação, listas, links e
@@ -110,7 +131,8 @@ sobre-mim.html             → página "Sobre mim"
 sobre-projeto.html        → página "Sobre o projeto"
 escrever.html             → editor manual, alternativo ao painel (não fica no menu)
 admin/                    → o painel de escrita (Decap CMS)
-admin/config.yml          → configuração do painel (campos, coleções)
+admin/config.yml          → configuração do painel (campos, coleções, endereço do site)
+netlify/functions/        → ponte de login (GitHub OAuth) para o painel funcionar
 data/posts/               → um arquivo .json por publicação — o que a Mel edita, direto ou pelo painel
 data/posts.json           → gerado sozinho a cada build — o que o site lê no navegador
 data/config.json          → gerado sozinho a cada build (meta de escrita + última publicação)

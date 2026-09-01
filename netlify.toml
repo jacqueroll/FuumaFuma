@@ -1,6 +1,14 @@
 [build]
   command = "npm run build"
   publish = "."
+  functions = "netlify/functions"
 
 [build.environment]
   NODE_VERSION = "20"
+
+# faz /api/auth e /api/callback apontarem para as Netlify Functions que
+# fazem o login do painel funcionar sem depender do Netlify Identity
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200

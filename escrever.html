@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Escrever — FuumaFuma</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap">
+    <a href="index.html" class="brand">
+      <span class="brand__mark">Fuuma<span>Fuma</span></span>
+      <span class="brand__tag">área da autora</span>
+    </a>
+    <nav class="nav" style="display:flex;">
+      <a href="index.html">← voltar para o site</a>
+    </nav>
+  </div>
+</header>
+
+<main class="section">
+  <div class="wrap">
+    <h1 style="font-style:italic;">Escrever uma publicação nova</h1>
+    <div class="banner-note">
+      O jeito mais simples de publicar agora é pelo <strong><a href="admin/">painel em /admin</a></strong> — é só entrar com seu login, escrever e clicar em publicar, sem mexer em nenhum arquivo. Esta página aqui é um caminho alternativo, manual, para quando você quiser escrever sem depender do painel: no final, ela gera um <strong>código pronto</strong> que você mesma cola no arquivo <code>data/posts/</code> do repositório, do jeito explicado no passo a passo ao lado. Tudo o que você digita fica salvo automaticamente neste navegador enquanto trabalha.
+    </div>
+
+    <div class="editor-shell">
+      <div>
+        <div class="field">
+          <label for="f-title">Título</label>
+          <input type="text" id="f-title" placeholder="O nome dessa história ou desabafo">
+        </div>
+
+        <div class="field" style="display:flex; gap:16px;">
+          <div style="flex:1;">
+            <label for="f-date">Data</label>
+            <input type="date" id="f-date">
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="f-tag-input">Tags (aperte Enter para adicionar cada uma)</label>
+          <div class="tag-input-row" id="tag-list"></div>
+          <input type="text" id="f-tag-input" placeholder="ex: auto-fic, drabble, x-clamp">
+        </div>
+
+        <div class="field">
+          <label for="f-cover">Imagem de capa (opcional)</label>
+          <input type="url" id="f-cover" placeholder="assets/images/posts/nome-da-imagem.jpg ou um link https://">
+          <p class="hint">Coloque suas imagens dentro de <code>assets/images/posts/</code> no repositório e escreva o caminho aqui, ou cole um link direto de imagem.</p>
+        </div>
+
+        <div class="field">
+          <label for="f-excerpt">Resumo curto (aparece nos cartões da Home e Histórias)</label>
+          <textarea id="f-excerpt" rows="2" placeholder="Uma ou duas frases sobre o que vem a seguir"></textarea>
+        </div>
+
+        <div class="field">
+          <label>Texto</label>
+          <div class="toolbar">
+            <button type="button" data-cmd="bold" title="Negrito"><b>N</b></button>
+            <button type="button" data-cmd="italic" title="Itálico"><i>I</i></button>
+            <button type="button" data-cmd="underline" title="Sublinhado"><u>S</u></button>
+            <button type="button" data-cmd="formatBlock" data-value="h3" title="Subtítulo">Título</button>
+            <button type="button" data-cmd="formatBlock" data-value="blockquote" title="Citação">“ ”</button>
+            <button type="button" data-cmd="insertUnorderedList" title="Lista">•—</button>
+            <button type="button" id="tb-link" title="Inserir link">🔗</button>
+            <button type="button" id="tb-image" title="Inserir imagem">🖼</button>
+            <button type="button" data-cmd="removeFormat" title="Limpar formatação">Limpar</button>
+          </div>
+          <div class="editable" id="editable" contenteditable="true"></div>
+        </div>
+
+        <div style="display:flex; gap:10px; margin-top:8px;">
+          <button class="btn" id="generate-btn" type="button">Gerar código do post</button>
+          <button class="btn btn--ghost" id="reset-btn" type="button">Limpar tudo</button>
+        </div>
+      </div>
+
+      <aside>
+        <div class="side-card">
+          <h3>Meta de escrita</h3>
+          <p>Usada no "Diário de escrita" da Home.</p>
+          <select id="f-meta" style="width:100%; padding:8px; border-radius:3px; border:1px solid var(--tan-line); font-family:'Literata',serif;">
+            <option value="quinzenal">Quinzenal</option>
+            <option value="mensal">Mensal</option>
+          </select>
+        </div>
+
+        <div class="side-card">
+          <h3>1. Código do post</h3>
+          <p>A primeira linha diz o nome do arquivo a criar. O resto é o conteúdo dele.</p>
+          <div class="code-out" id="code-out">O código do post aparece aqui depois de clicar em "Gerar código do post".</div>
+          <button class="btn btn--sm" style="margin-top:10px;" id="copy-json" type="button">Copiar código do post</button>
+        </div>
+
+        <div class="side-card">
+          <h3>2. Ritmo de publicação (opcional)</h3>
+          <p>Só use isto se quiser trocar entre quinzenal e mensal — a data da última publicação é sempre automática.</p>
+          <div class="code-out" id="config-out"></div>
+          <button class="btn btn--sm" style="margin-top:10px;" id="copy-config" type="button">Copiar config</button>
+        </div>
+
+        <div class="side-card">
+          <h3>3. Publicar no GitHub</h3>
+          <ol class="steps">
+            <li>Abra o repositório no site do GitHub, pasta <code>data/posts/</code>.</li>
+            <li>Clique em "Add file → Create new file".</li>
+            <li>Dê ao arquivo o nome indicado na primeira linha do código copiado.</li>
+            <li>Cole o restante do código (sem essa primeira linha de comentário) no corpo do arquivo.</li>
+            <li>Clique em "Commit changes" para publicar.</li>
+            <li>O site recompila sozinho e mostra a novidade em 1-2 minutos.</li>
+          </ol>
+        </div>
+      </aside>
+    </div>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <span>© <span id="year"></span> FuumaFuma</span>
+    <a href="index.html">voltar ao início</a>
+  </div>
+</footer>
+
+<script src="assets/js/common.js"></script>
+<script src="assets/js/admin.js"></script>
+<script>FF.initNav('');</script>
+</body>
+</html>

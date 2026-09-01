@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FuumaFuma — o cantinho de escrita da Mel</title>
+<meta name="description" content="FuumaFuma: cantinho de criatividade, fics e devaneios inspirados por X/1999 e o universo CLAMP.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap">
+    <a href="index.html" class="brand">
+      <span class="brand__mark">Fuuma<span>Fuma</span></span>
+      <span class="brand__tag">o cantinho da Mel</span>
+    </a>
+    <button class="nav-toggle" aria-label="Abrir menu">Menu ☰</button>
+    <nav class="nav">
+      <a href="index.html" data-page="inicio">Início</a>
+      <a href="historias.html" data-page="historias">Histórias</a>
+      <a href="sobre-mim.html" data-page="sobre-mim">Sobre mim</a>
+      <a href="sobre-projeto.html" data-page="sobre-projeto">Sobre o projeto</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero" aria-label="Imagens em destaque">
+  <div class="hero__slide is-active" style="--focus: 50% 15%;">
+    <img src="assets/images/hero/fuuma-01.jpg" alt="Ilustração de Fuuma Monou, de X/1999 (CLAMP)">
+  </div>
+  <div class="hero__slide" style="--focus: 50% 10%;">
+    <img src="assets/images/hero/kamui-01.jpg" alt="Ilustração de Kamui Shirou, de X/1999 (CLAMP)">
+  </div>
+  <div class="hero__slide" style="--focus: 50% 18%;">
+    <img src="assets/images/hero/fuuma-02.jpg" alt="Ilustração de Fuuma Monou, de X/1999 (CLAMP)">
+  </div>
+  <div class="hero__slide" style="--focus: 50% 22%;">
+    <img src="assets/images/hero/kamui-02.jpg" alt="Ilustração de Kamui Shirou, de X/1999 (CLAMP)">
+  </div>
+  <div class="hero__slide" style="--focus: 50% 12%;">
+    <img src="assets/images/hero/fuuma-03.jpg" alt="Ilustração de Fuuma Monou, de X/1999 (CLAMP)">
+  </div>
+  <div class="hero__slide" style="--focus: 50% 15%;">
+    <img src="assets/images/hero/kamui-03.jpg" alt="Ilustração de Kamui Shirou, de X/1999 (CLAMP)">
+  </div>
+  <div class="hero__scrim"></div>
+  <div class="hero__credit">Fanarts de X/1999 — CLAMP</div>
+  <div class="hero__content">
+    <div class="wrap">
+      <p class="hero__eyebrow">um cantinho de criatividade e devaneios</p>
+      <h1 class="hero__title">FuumaFuma</h1>
+      <p class="hero__subtitle">Boas-vindas! Este é o meu cantinho da criatividade e dos sonhos, onde eu deixo minha mente trabalhar de acordo com a sua vontade.</p>
+    </div>
+  </div>
+  <div class="hero__nav">
+    <button class="hero__arrow hero__arrow--prev" aria-label="Imagem anterior">‹</button>
+    <div class="hero__dots"></div>
+    <button class="hero__arrow hero__arrow--next" aria-label="Próxima imagem">›</button>
+  </div>
+</section>
+
+<main>
+  <section class="section section--tight">
+    <div class="wrap">
+      <p class="lede">Pode me chamar de <em>Mel</em>. Aqui eu escrevo o que vier — fics, devaneios, pedaços de histórias que um dia talvez ganhem corpo. Sem pressa, sem cobrança, só o cantinho.</p>
+    </div>
+  </section>
+
+  <section class="section section--tan">
+    <div class="wrap">
+      <div class="section__head">
+        <h2>Diário de escrita</h2>
+      </div>
+      <div class="progress-card" id="progress-card"></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section__head">
+        <h2>Últimas publicações</h2>
+        <a class="more" href="historias.html">ver todas as histórias →</a>
+      </div>
+      <div class="post-grid" id="latest-grid"></div>
+      <div class="empty-state" id="latest-empty" style="display:none;">
+        <h3>Nada por aqui ainda</h3>
+        <p>Assim que a primeira publicação sair, ela aparece nesta lista automaticamente.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <span>© <span id="year"></span> FuumaFuma · feito com carinho por uma fã incondicional de CLAMP</span>
+    <a href="admin/">painel de escrita</a>
+  </div>
+</footer>
+
+<script src="assets/js/common.js"></script>
+<script src="assets/js/hero.js"></script>
+<script src="assets/js/home.js"></script>
+<script>FF.initNav('inicio');</script>
+
+<!-- cuida do link de convite/confirmação de senha do painel de escrita (Netlify Identity) -->
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+<script>
+  if (window.netlifyIdentity) {
+    window.netlifyIdentity.on('init', user => {
+      if (!user) {
+        window.netlifyIdentity.on('login', () => { document.location.href = '/admin/'; });
+      }
+    });
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+{
+  "name": "fuumafuma",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Site do FuumaFuma — compila data/posts/*.json em data/posts.json a cada publicação.",
+  "scripts": {
+    "build": "node scripts/build-posts.js"
+  },
+  "dependencies": {
+    "marked": "^12.0.2"
+  }
+}

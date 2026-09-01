@@ -1,8 +1,10 @@
 {
   "title": "Post de exemplo — pode apagar!",
   "date": "2026-09-01",
-  "tags": ["avisos"],
-  "cover": "",
+  "tags": [
+    "avisos"
+  ],
+  "cover": "assets/images/posts/monou.fuuma.full.572102.jpg",
   "excerpt": "Esta é uma publicação de demonstração para você ver como o texto, as imagens e as tags aparecem no site. Pode editar ou apagar quando quiser.",
   "body": "Oi! Esta é uma publicação de exemplo, criada só para mostrar como as coisas ficam formatadas por aqui: **negrito**, *itálico*, citações e imagens.\n\n> Uma citação fica assim — boa para separar uma fala ou um trecho de fic.\n\nQuando você escrever de verdade no painel em **/admin**, é só apagar esta publicação por lá (ou apagar o arquivo `data/posts/post-de-exemplo-pode-apagar.json`) e escrever a sua no lugar."
 }

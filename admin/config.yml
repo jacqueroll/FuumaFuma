@@ -1,6 +1,9 @@
 backend:
-  name: git-gateway
+  name: github
+  repo: jacqueroll/FuumaFuma
   branch: main
+  base_url: https://fuumafuma.netlify.app
+  auth_endpoint: api/auth
 
 # tudo que a Mel envia no editor de imagem cai aqui, dentro do repositório
 media_folder: "assets/images/posts"

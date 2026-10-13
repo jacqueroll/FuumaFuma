@@ -41,6 +41,9 @@ document.addEventListener('DOMContentLoaded', async () => {
       <span class="copy-toast" id="copy-toast">link copiado!</span>
     </div>`;
 
+  // avisa a área de comentários que a publicação foi carregada
+  document.dispatchEvent(new CustomEvent('ff:post-ready', { detail: post }));
+
   document.querySelector('#copy-link').addEventListener('click', async () => {
     try {
       await navigator.clipboard.writeText(url);

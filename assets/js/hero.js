@@ -48,4 +48,42 @@ function initHero() {
   restart();
 }
 
-document.addEventListener('DOMContentLoaded', initHero);
+/*
+ * Imagens e enquadramento editáveis pelo painel (Configurações > Banner da
+ * página inicial), salvos em data/hero.json. Se o arquivo não carregar, o
+ * banner usa as imagens que já estão escritas no index.html.
+ */
+async function applyHeroData() {
+  const slides = Array.from(document.querySelectorAll('.hero__slide'));
+  if (!slides.length) return;
+  try {
+    const base = (typeof FF !== 'undefined' && FF.BASE) || '/';
+    const res = await fetch(base + 'data/hero.json', { cache: 'no-store' });
+    if (!res.ok) return;
+    const data = await res.json();
+    const items = Object.keys(data)
+      .filter(k => /^slide\d+$/.test(k))
+      .sort((a, b) => Number(a.slice(5)) - Number(b.slice(5)))
+      .map(k => data[k]);
+
+    slides.forEach((slide, i) => {
+      const item = items[i];
+      if (!item || !item.imagem) return;
+      const img = slide.querySelector('img');
+      if (!img) return;
+      const src = /^(https?:)?\/\//.test(item.imagem) ? item.imagem : base + item.imagem.replace(/^\//, '');
+      img.src = src;
+      if (item.descricao) img.alt = item.descricao;
+      const [x, y, z] = String(item.enquadramento || '').trim().split(/\s+/).map(Number);
+      if (isFinite(x) && isFinite(y)) slide.style.setProperty('--focus', `${x}% ${y}%`);
+      slide.style.setProperty('--zoom', isFinite(z) && z >= 1 ? z : 1);
+    });
+  } catch (e) {
+    // mantém as imagens do HTML
+  }
+}
+
+document.addEventListener('DOMContentLoaded', async () => {
+  await applyHeroData();
+  initHero();
+});

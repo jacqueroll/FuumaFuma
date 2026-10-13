@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Newsletter — FuumaFuma</title>
+<meta name="description" content="Receba por e-mail um aviso a cada publicação nova do FuumaFuma.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="alternate" type="application/rss+xml" title="FuumaFuma" href="feed.xml">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap">
+    <a href="index.html" class="brand">
+      <span class="brand__mark">Fuuma<span>Fuma</span></span>
+      <span class="brand__tag">o cantinho da Mel</span>
+    </a>
+    <button class="nav-toggle" aria-label="Abrir menu">Menu ☰</button>
+    <nav class="nav">
+      <a href="index.html" data-page="inicio">Início</a>
+      <a href="historias.html" data-page="historias">Histórias</a>
+      <a href="sobre-mim.html" data-page="sobre-mim">Sobre mim</a>
+      <a href="sobre-projeto.html" data-page="sobre-projeto">Sobre o projeto</a>
+      <a href="newsletter.html" data-page="newsletter">Newsletter</a>
+    </nav>
+  </div>
+</header>
+
+<main class="section">
+  <div class="wrap">
+    <div class="newsletter">
+      <h1>Newsletter</h1>
+      <p class="byline">Um aviso no seu e-mail sempre que sair coisa nova.</p>
+      <div class="prose">
+        <p>Deixe seu e-mail aqui e eu te conto quando uma publicação nova chegar ao cantinho. Só isso: nada de spam, e você pode sair quando quiser.</p>
+      </div>
+
+      <form class="newsletter-card" id="newsletter-form" action="https://formspree.io/f/meaerlor" method="POST">
+        <input type="hidden" name="_subject" value="Nova inscrição na newsletter do FuumaFuma">
+        <input type="text" name="_gotcha" class="visually-hidden" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <div class="field">
+          <label for="nl-nome">Como posso te chamar? <span class="optional">(opcional)</span></label>
+          <input type="text" id="nl-nome" name="nome" maxlength="60" autocomplete="given-name">
+        </div>
+        <div class="field">
+          <label for="nl-email">Seu e-mail</label>
+          <input type="email" id="nl-email" name="email" required autocomplete="email" placeholder="voce@exemplo.com">
+        </div>
+        <button class="btn" type="submit">Quero receber</button>
+        <p class="form-status" id="newsletter-status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <span>© <span id="year"></span> FuumaFuma · feito com carinho por uma fã incondicional de CLAMP</span>
+    <a href="admin/">painel de escrita</a>
+  </div>
+</footer>
+
+<script src="assets/js/common.js"></script>
+<script>
+  FF.initNav('newsletter');
+
+  (function () {
+    const form = document.querySelector('#newsletter-form');
+    const status = document.querySelector('#newsletter-status');
+    const button = form.querySelector('button[type="submit"]');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      status.className = 'form-status';
+      status.textContent = 'Enviando...';
+      button.disabled = true;
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { Accept: 'application/json' }
+        });
+        if (!res.ok) throw new Error('falha no envio');
+        form.reset();
+        status.classList.add('is-ok');
+        status.textContent = 'Inscrição feita! Você vai receber um aviso quando sair publicação nova.';
+      } catch (err) {
+        status.classList.add('is-error');
+        status.textContent = 'Não consegui registrar agora. Confira o e-mail e tente de novo em instantes.';
+      } finally {
+        button.disabled = false;
+      }
+    });
+  })();
+</script>
+</body>
+</html>

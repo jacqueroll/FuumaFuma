@@ -6,6 +6,7 @@
 <title>Publicação — FuumaFuma</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="assets/css/style.css">
+<link rel="alternate" type="application/rss+xml" title="FuumaFuma" href="feed.xml">
 </head>
 <body>
 
@@ -21,12 +22,37 @@
       <a href="historias.html" data-page="historias">Histórias</a>
       <a href="sobre-mim.html" data-page="sobre-mim">Sobre mim</a>
       <a href="sobre-projeto.html" data-page="sobre-projeto">Sobre o projeto</a>
+      <a href="newsletter.html" data-page="newsletter">Newsletter</a>
     </nav>
   </div>
 </header>
 
 <main class="section">
   <div class="wrap" id="post-root"></div>
+
+  <div class="wrap">
+    <section class="comments" id="comments" hidden aria-labelledby="comments-title">
+      <h2 id="comments-title">Comentários</h2>
+      <div class="comments__list" id="comments-list"></div>
+
+      <form class="comment-form" id="comment-form" name="comentarios" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/post.html">
+        <input type="hidden" name="form-name" value="comentarios">
+        <input type="hidden" name="post" id="comment-post" value="">
+        <p class="visually-hidden"><label>Não preencha este campo: <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
+        <h3>Deixe um comentário</h3>
+        <div class="field">
+          <label for="comment-nome">Nome</label>
+          <input type="text" id="comment-nome" name="nome" required maxlength="60" autocomplete="nickname">
+        </div>
+        <div class="field">
+          <label for="comment-texto">Comentário</label>
+          <textarea id="comment-texto" name="comentario" rows="5" required maxlength="2000"></textarea>
+        </div>
+        <button class="btn" type="submit">Enviar comentário</button>
+        <p class="form-status" id="comment-status" role="status" aria-live="polite"></p>
+      </form>
+    </section>
+  </div>
 </main>
 
 <footer class="footer">
@@ -38,6 +64,7 @@
 
 <script src="assets/js/common.js"></script>
 <script src="assets/js/post.js"></script>
+<script src="assets/js/comments.js"></script>
 <script>FF.initNav('');</script>
 </body>
 </html>

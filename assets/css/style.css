@@ -916,3 +916,26 @@ h1, h2, h3, h4 {
   box-shadow: var(--shadow);
   padding: 24px 24px 18px;
 }
+
+.newsletter-leave {
+  margin-top: 40px;
+  padding-top: 24px;
+  border-top: 1px solid var(--tan-line);
+}
+
+.newsletter-leave h2 { font-size: 1.15rem; margin-bottom: 4px; }
+
+.newsletter-leave p { font-size: 0.9rem; color: var(--brown-600); margin: 0 0 12px; }
+
+.newsletter-leave__row { display: flex; gap: 8px; flex-wrap: wrap; }
+
+.newsletter-leave__row input {
+  flex: 1 1 220px;
+  border: 1px solid var(--tan-line);
+  background: var(--paper);
+  border-radius: var(--radius);
+  padding: 7px 11px;
+  font-family: 'Literata', serif;
+  font-size: 0.92rem;
+  color: var(--brown-950);
+}

@@ -49,3 +49,56 @@ collections:
             widget: "string"
             required: false
             hint: "atualizada automaticamente a cada publicação nova"
+
+      - name: "banner"
+        label: "Banner da página inicial"
+        file: "data/hero.json"
+        fields:
+          - label: "Imagem 1"
+            name: "slide1"
+            widget: "object"
+            collapsed: false
+            fields:
+              - { label: "Imagem", name: "imagem", widget: "image", media_folder: "/assets/images/hero", public_folder: "/assets/images/hero", choose_url: false, hint: "envie uma imagem grande (2000px de largura ou mais fica melhor)" }
+              - { label: "Descrição da imagem (para leitores de tela)", name: "descricao", widget: "string", required: false }
+              - { label: "Enquadramento no banner", name: "enquadramento", widget: "enquadramento", slide: "slide1", default: "50 50 1", hint: "arraste a imagem dentro da moldura e use o zoom para escolher a parte que aparece" }
+          - label: "Imagem 2"
+            name: "slide2"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "Imagem", name: "imagem", widget: "image", media_folder: "/assets/images/hero", public_folder: "/assets/images/hero", choose_url: false, hint: "envie uma imagem grande (2000px de largura ou mais fica melhor)" }
+              - { label: "Descrição da imagem (para leitores de tela)", name: "descricao", widget: "string", required: false }
+              - { label: "Enquadramento no banner", name: "enquadramento", widget: "enquadramento", slide: "slide2", default: "50 50 1", hint: "arraste a imagem dentro da moldura e use o zoom para escolher a parte que aparece" }
+          - label: "Imagem 3"
+            name: "slide3"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "Imagem", name: "imagem", widget: "image", media_folder: "/assets/images/hero", public_folder: "/assets/images/hero", choose_url: false, hint: "envie uma imagem grande (2000px de largura ou mais fica melhor)" }
+              - { label: "Descrição da imagem (para leitores de tela)", name: "descricao", widget: "string", required: false }
+              - { label: "Enquadramento no banner", name: "enquadramento", widget: "enquadramento", slide: "slide3", default: "50 50 1", hint: "arraste a imagem dentro da moldura e use o zoom para escolher a parte que aparece" }
+          - label: "Imagem 4"
+            name: "slide4"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "Imagem", name: "imagem", widget: "image", media_folder: "/assets/images/hero", public_folder: "/assets/images/hero", choose_url: false, hint: "envie uma imagem grande (2000px de largura ou mais fica melhor)" }
+              - { label: "Descrição da imagem (para leitores de tela)", name: "descricao", widget: "string", required: false }
+              - { label: "Enquadramento no banner", name: "enquadramento", widget: "enquadramento", slide: "slide4", default: "50 50 1", hint: "arraste a imagem dentro da moldura e use o zoom para escolher a parte que aparece" }
+          - label: "Imagem 5"
+            name: "slide5"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "Imagem", name: "imagem", widget: "image", media_folder: "/assets/images/hero", public_folder: "/assets/images/hero", choose_url: false, hint: "envie uma imagem grande (2000px de largura ou mais fica melhor)" }
+              - { label: "Descrição da imagem (para leitores de tela)", name: "descricao", widget: "string", required: false }
+              - { label: "Enquadramento no banner", name: "enquadramento", widget: "enquadramento", slide: "slide5", default: "50 50 1", hint: "arraste a imagem dentro da moldura e use o zoom para escolher a parte que aparece" }
+          - label: "Imagem 6"
+            name: "slide6"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "Imagem", name: "imagem", widget: "image", media_folder: "/assets/images/hero", public_folder: "/assets/images/hero", choose_url: false, hint: "envie uma imagem grande (2000px de largura ou mais fica melhor)" }
+              - { label: "Descrição da imagem (para leitores de tela)", name: "descricao", widget: "string", required: false }
+              - { label: "Enquadramento no banner", name: "enquadramento", widget: "enquadramento", slide: "slide6", default: "50 50 1", hint: "arraste a imagem dentro da moldura e use o zoom para escolher a parte que aparece" }

@@ -805,3 +805,114 @@ h1, h2, h3, h4 {
   color: var(--brown-800);
   margin-bottom: 26px;
 }
+
+/* ---------- banner: zoom definido no painel ---------- */
+
+.hero__slide img {
+  transform: scale(var(--zoom, 1));
+  transform-origin: var(--focus, 50% 20%);
+}
+
+/* ---------- formulários: campos extras e mensagens ---------- */
+
+.field input[type="email"] {
+  width: 100%;
+  border: 1px solid var(--tan-line);
+  background: var(--paper);
+  border-radius: var(--radius);
+  padding: 9px 11px;
+  font-family: 'Literata', serif;
+  font-size: 0.98rem;
+  color: var(--brown-950);
+}
+
+.btn:disabled { opacity: 0.6; cursor: wait; }
+
+.form-status {
+  margin: 12px 0 0;
+  font-size: 0.88rem;
+  color: var(--brown-600);
+  min-height: 1.2em;
+}
+
+.form-status.is-ok { color: var(--teal-dark); }
+.form-status.is-error { color: var(--blood); }
+
+.optional { color: var(--brown-400); font-size: 0.8rem; }
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+  padding: 0;
+  margin: -1px;
+}
+
+/* ---------- comentários ---------- */
+
+.comments {
+  max-width: 68ch;
+  margin-top: 48px;
+  padding-top: 30px;
+  border-top: 1px solid var(--tan-line);
+}
+
+.comments h2 { font-size: 1.5rem; margin-bottom: 18px; }
+
+.comments__list { margin-bottom: 30px; }
+
+.comments__empty { color: var(--brown-600); font-size: 0.95rem; }
+
+.comment {
+  background: var(--paper);
+  border: 1px solid var(--tan-line);
+  border-radius: var(--radius);
+  padding: 14px 18px;
+  margin-bottom: 12px;
+}
+
+.comment__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 6px;
+}
+
+.comment__name {
+  font-family: 'Fraunces', serif;
+  font-weight: 600;
+  color: var(--brown-800);
+}
+
+.comment__date { font-size: 0.78rem; color: var(--brown-400); }
+
+.comment__text { margin: 0; font-size: 0.97rem; overflow-wrap: anywhere; }
+
+.comment-form {
+  background: var(--paper);
+  border: 1px solid var(--tan-line);
+  border-radius: var(--radius);
+  padding: 22px 22px 18px;
+}
+
+.comment-form h3 { font-size: 1.1rem; margin-bottom: 14px; }
+
+/* ---------- newsletter ---------- */
+
+.newsletter { max-width: 560px; }
+
+.newsletter h1 { font-size: 2.4rem; font-style: italic; }
+
+.newsletter-card {
+  margin-top: 26px;
+  background: var(--paper);
+  border: 1px solid var(--tan-line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 24px 24px 18px;
+}

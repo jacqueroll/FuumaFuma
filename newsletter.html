@@ -37,9 +37,9 @@
         <p>Deixe seu e-mail aqui e eu te conto quando uma publicação nova chegar ao cantinho. Só isso: nada de spam, e você pode sair quando quiser.</p>
       </div>
 
-      <form class="newsletter-card" id="newsletter-form" action="https://formspree.io/f/meaerlor" method="POST">
-        <input type="hidden" name="_subject" value="Nova inscrição na newsletter do FuumaFuma">
-        <input type="text" name="_gotcha" class="visually-hidden" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <form class="newsletter-card" id="newsletter-form" name="newsletter" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/newsletter.html">
+        <input type="hidden" name="form-name" value="newsletter">
+        <p class="visually-hidden"><label>Não preencha este campo: <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
         <div class="field">
           <label for="nl-nome">Como posso te chamar? <span class="optional">(opcional)</span></label>
           <input type="text" id="nl-nome" name="nome" maxlength="60" autocomplete="given-name">
@@ -50,6 +50,19 @@
         </div>
         <button class="btn" type="submit">Quero receber</button>
         <p class="form-status" id="newsletter-status" role="status" aria-live="polite"></p>
+      </form>
+
+      <form class="newsletter-leave" id="cancelar" name="cancelamentos" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/newsletter.html">
+        <input type="hidden" name="form-name" value="cancelamentos">
+        <p class="visually-hidden"><label>Não preencha este campo: <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
+        <h2>Quer parar de receber?</h2>
+        <p>Digite o e-mail cadastrado e ele sai da lista.</p>
+        <div class="newsletter-leave__row">
+          <label class="visually-hidden" for="nl-sair">E-mail para cancelar</label>
+          <input type="email" id="nl-sair" name="email" required autocomplete="email" placeholder="voce@exemplo.com">
+          <button class="btn btn--ghost btn--sm" type="submit">Cancelar inscrição</button>
+        </div>
+        <p class="form-status" id="cancelar-status" role="status" aria-live="polite"></p>
       </form>
     </div>
   </div>
@@ -67,32 +80,59 @@
   FF.initNav('newsletter');
 
   (function () {
-    const form = document.querySelector('#newsletter-form');
-    const status = document.querySelector('#newsletter-status');
-    const button = form.querySelector('button[type="submit"]');
+    // a lista fica no Netlify Forms (usada no envio automático);
+    // o Formspree continua recebendo uma cópia de cada inscrição
+    const FORMSPREE = 'https://formspree.io/f/meaerlor';
 
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      status.className = 'form-status';
-      status.textContent = 'Enviando...';
-      button.disabled = true;
-      try {
-        const res = await fetch(form.action, {
-          method: 'POST',
-          body: new FormData(form),
-          headers: { Accept: 'application/json' }
-        });
-        if (!res.ok) throw new Error('falha no envio');
-        form.reset();
-        status.classList.add('is-ok');
-        status.textContent = 'Inscrição feita! Você vai receber um aviso quando sair publicação nova.';
-      } catch (err) {
-        status.classList.add('is-error');
-        status.textContent = 'Não consegui registrar agora. Confira o e-mail e tente de novo em instantes.';
-      } finally {
-        button.disabled = false;
+    function sendToNetlify(form) {
+      return fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(new FormData(form)).toString()
+      });
+    }
+
+    function handle(form, status, okText, extra) {
+      const button = form.querySelector('button[type="submit"]');
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        status.className = 'form-status';
+        status.textContent = 'Enviando...';
+        button.disabled = true;
+        try {
+          const res = await sendToNetlify(form);
+          if (!res.ok) throw new Error('falha no envio');
+          if (extra) extra(form);
+          form.reset();
+          status.classList.add('is-ok');
+          status.textContent = okText;
+        } catch (err) {
+          status.classList.add('is-error');
+          status.textContent = 'Não consegui registrar agora. Confira o e-mail e tente de novo em instantes.';
+        } finally {
+          button.disabled = false;
+        }
+      });
+    }
+
+    handle(
+      document.querySelector('#newsletter-form'),
+      document.querySelector('#newsletter-status'),
+      'Inscrição feita! Você vai receber um aviso quando sair publicação nova.',
+      (form) => {
+        const data = new FormData();
+        data.append('email', form.querySelector('#nl-email').value);
+        data.append('nome', form.querySelector('#nl-nome').value);
+        data.append('_subject', 'Nova inscrição na newsletter do FuumaFuma');
+        fetch(FORMSPREE, { method: 'POST', body: data, headers: { Accept: 'application/json' } }).catch(() => {});
       }
-    });
+    );
+
+    handle(
+      document.querySelector('#cancelar'),
+      document.querySelector('#cancelar-status'),
+      'Pronto, esse e-mail não vai mais receber os avisos.'
+    );
   })();
 </script>
 </body>

@@ -2,11 +2,13 @@
   "name": "fuumafuma",
   "private": true,
   "version": "1.0.0",
-  "description": "Site do FuumaFuma — compila data/posts/*.json em data/posts.json a cada publicação.",
+  "description": "Site do FuumaFuma — compila data/posts/*.json em data/posts.json a cada publicação e envia a newsletter.",
   "scripts": {
     "build": "node scripts/build-posts.js"
   },
   "dependencies": {
-    "marked": "^12.0.2"
+    "marked": "^12.0.2",
+    "nodemailer": "^6.9.16",
+    "@netlify/blobs": "^8.1.0"
   }
 }
